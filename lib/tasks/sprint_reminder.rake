@@ -2,9 +2,14 @@ desc <<-EOT
 Check for tasks in To Do or Doing state for the current sprint.
 
 Options:
+
+Specify the regexp for matching state name
   states='To Do|Doing'
 
-Will send reminders when issues are due 5 or 2 days in advance.
+Only send emails to admins, used for testing.
+  admins='yes'
+
+Will send reminders when issues in an active sprint.
 EOT
 
 namespace :redmine do

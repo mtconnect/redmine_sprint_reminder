@@ -6,5 +6,8 @@ Considers sprints where today is within the start and end date interval.
 
 ## Options:
 
-* status: A regular expression matching the status names that are considered in-flight.
-  * Default `'To Do|Doing'`
+* states: A regular expression matching the status names that are considered in-flight.
+  * DefaultL `'To Do|Doing'`
+* admins: Only send emails to users who are admins. Used for testing.
+  * Default: 
+
