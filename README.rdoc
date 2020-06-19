@@ -1,3 +1,0 @@
-= redmine_sprint_reminder
-
-Description goes here
