@@ -30,7 +30,7 @@ module RedmineSprintReminder
           end
 
           issues_by_assignee.each do |assignee, issues|
-            sprint_reminder(assignee, issues).deliver_later if !only_admins || assignee.admin?
+            sprint_reminder(assignee, issues).deliver_later if !only_admins or assignee.admin?
           end
         end
       end
