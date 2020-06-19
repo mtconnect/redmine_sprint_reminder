@@ -12,6 +12,7 @@ namespace :redmine do
     Mailer.with_synched_deliveries do
       options = {}
       options[:states] = ENV['states'].presence.to_s
+      options[:admins] = ENV['admins'].presence.to_s == 'yes'
       puts "Calling mailer with #{options.inspect}"
       Mailer.sprint_reminders(options)
     end

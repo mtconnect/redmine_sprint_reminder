@@ -5,6 +5,7 @@ module RedmineSprintReminder
         include InstanceMethods
         
         def self.sprint_reminders(options)
+          only_admins = options[:admins] || false
           states = options[:states] || /To Do|Doing/
           state_pattern = Regexp.new(states)
           issues_by_assignee = Hash.new { |h, k| h[k] = [] unless h.include?(k) }
@@ -29,7 +30,7 @@ module RedmineSprintReminder
           end
 
           issues_by_assignee.each do |assignee, issues|
-            sprint_reminder(assignee, issues).deliver_later
+            sprint_reminder(assignee, issues).deliver_later if !only_admins || assignee.admin?
           end
         end
       end
