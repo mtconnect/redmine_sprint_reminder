@@ -1,4 +1,4 @@
-<p><%= "You have #{@issues.size} issue(s) assigned to you due in a minimum of #{@days} days" %></p>
+<p><%= "You have #{@issues.size} issue(s) assigned to you with the soonest due in #{@days} days" %></p>
 
 <ul>
 <% @issues.each do |issue, sprint| -%>

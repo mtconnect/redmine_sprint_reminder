@@ -1,4 +1,4 @@
-<%= "You have #{@issues.size} issue(s) assigned to you due in a minimum of #{@days} days" %>:
+<%= "You have #{@issues.size} issue(s) assigned to you with the soonest due in #{@days} days" %>:
 
 <% @issues.each do |issue, sprint| -%>
 * <%= "#{issue.project} - #{issue.tracker} ##{issue.id}: #{issue.subject} (#{due_date_distance_in_words(sprint.end_date)})" %>
