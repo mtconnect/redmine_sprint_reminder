@@ -1,0 +1,8 @@
+<%= "You have #{@issues.size} issue(s) assigned to you due in a minimum of #{@days} days" %>:
+
+<% @issues.each do |issue, sprint| -%>
+* <%= "#{issue.project} - #{issue.tracker} ##{issue.id}: #{issue.subject} (#{due_date_distance_in_words(sprint.end_date)})" %>
+<% end -%>
+
+<%= l(:label_issue_view_all)%> (<%= l(:label_x_open_issues_abbr, :count => @issues.size) %>)
+<%= @issues_url %>
