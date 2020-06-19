@@ -3,7 +3,7 @@ Redmine::Plugin.register :redmine_sprint_reminder do
   author 'William Sobel'
   description 'Used with RedmineUp Agile plugin to remined users when tasks are due by the end of the sprint'
   version '0.9.0'
-  url 'https://projects.wvsobel.llc'
+  url 'https://github.com/mtconnect/redmine_sprint_reminder'
   author_url 'https://projects.wvsobel.llc'
 
   require_dependency 'patches/mailer_patch'
