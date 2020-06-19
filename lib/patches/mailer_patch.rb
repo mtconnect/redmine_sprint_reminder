@@ -9,7 +9,7 @@ module RedmineSprintReminder
           issues_by_assignee = Hash.new { |h, k| h[k] = [] unless h.include?(k) }
 
           AgileSprint.available.select do |s|
-            s.status == AgileSprint::ACTIVE and days.include?(s.remaining)
+            (s.status == AgileSprint::ACTIVE || s.status == AgileSprint::OPEN) and days.include?(s.remaining)
           end.each do |sprint|
             sprint.issues.select do |i|
               i.status.name =~ /To Do|Doing/
@@ -40,7 +40,7 @@ module RedmineSprintReminder
                               :set_filter => 1, :assigned_to_id => 'me',
                               :sort => 'due_date:asc')
         @days = @issues.map { |i, s| s.remaining }.min
-        puts "****** Creating email"
+        
         mail(:to => user,
              :subject => "You have #{issues.size} issue(s) due soon")
       end
