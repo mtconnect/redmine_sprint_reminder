@@ -5,14 +5,17 @@ module RedmineSprintReminder
         include InstanceMethods
         
         def self.sprint_reminders(options)
-          days = options[:days] || [5]          
+          states = options[:states] || /To Do|Doing/
+          state_pattern = Regexp.new(states)
           issues_by_assignee = Hash.new { |h, k| h[k] = [] unless h.include?(k) }
+          today = Date.today
 
-          AgileSprint.available.select do |s|
-            (s.status == AgileSprint::ACTIVE || s.status == AgileSprint::OPEN) and days.include?(s.remaining)
-          end.each do |sprint|
+          AgileSprint.available.
+            where(":today BETWEEN #{AgileSprint.table_name}.start_date AND #{AgileSprint.table_name}.end_date", today: today).
+            eager_load(issues: [:status, :assigned_to]).
+            each do |sprint|
             sprint.issues.select do |i|
-              i.status.name =~ /To Do|Doing/
+              i.status.name =~ state_pattern
             end.each do |i|
               assignee = i.assigned_to
               if assignee.is_a?(Group)
@@ -39,6 +42,7 @@ module RedmineSprintReminder
         @issues_url = url_for(:controller => 'issues', :action => 'index',
                               :set_filter => 1, :assigned_to_id => 'me',
                               :sort => 'due_date:asc')
+        @issues.sort_by { |i, s| s.remaining }
         @days = @issues.map { |i, s| s.remaining }.min
         
         mail(:to => user,
