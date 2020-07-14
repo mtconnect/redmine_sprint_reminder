@@ -21,7 +21,7 @@ module RedmineSprintReminder
               assignee = i.assigned_to
               if assignee.is_a?(Group)
                 assignee.users.each do |user|
-                  issues_by_assignee[user] << [i, sprint] if assignee.active?
+                  issues_by_assignee[user] << [i, sprint] if user.active?
                 end
               elsif assignee.is_a?(User) and assignee.active?
                 issues_by_assignee[assignee] << [i, sprint]
