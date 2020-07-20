@@ -48,8 +48,8 @@ module RedmineSprintReminder
                               :set_filter => 1, :assigned_to_id => 'me',
                               :sort => 'due_date:asc')
         @issues = issues.sort_by { |i, s| s.remaining }
-        @days = @issues.map { |i, s| s.remaining }.min
-        
+        @days = @issues.first[1].remaining
+
         mail(:to => user,
              :subject => "You have #{issues.size} issue(s) due soon")
       end
