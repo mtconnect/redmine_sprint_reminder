@@ -44,11 +44,10 @@ module RedmineSprintReminder
     module InstanceMethods
       # Builds a reminder mail to user about issues that are due in the next days.
       def sprint_reminder(user, issues)
-        @issues = issues
         @issues_url = url_for(:controller => 'issues', :action => 'index',
                               :set_filter => 1, :assigned_to_id => 'me',
                               :sort => 'due_date:asc')
-        @issues.sort_by { |i, s| s.remaining }
+        @issues = issues.sort_by { |i, s| s.remaining }
         @days = @issues.map { |i, s| s.remaining }.min
         
         mail(:to => user,
