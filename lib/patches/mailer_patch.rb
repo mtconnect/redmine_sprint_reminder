@@ -6,7 +6,12 @@ module RedmineSprintReminder
         
         def self.sprint_reminders(options)
           only_admins = options[:admins] || false
-          states = options[:states] || /To Do|Doing/
+
+          if options[:states] and !options[:states].empty?
+            states = options[:states]
+          else
+            states = "To Do|Doing"
+          end
           state_pattern = Regexp.new(states)
           issues_by_assignee = Hash.new { |h, k| h[k] = [] unless h.include?(k) }
           today = Date.today
