@@ -5,7 +5,8 @@ Redmine::Plugin.register :redmine_sprint_reminder do
   version '0.9.0'
   url 'https://github.com/mtconnect/redmine_sprint_reminder'
   author_url 'https://projects.wvsobel.llc'
-
-  require_dependency 'patches/mailer_patch'
 end
+
+require File.dirname(__FILE__) + '/lib/patches/sprint_mailer_patch'
+
 
